@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexo · GitHub portfolio & about me</title>
+    <title>Nexo · GitHub repositories</title>
+    <!-- Google Fonts: Inter -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400;14..32,500;14..32,600;14..32,700&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons (v6 free) -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
     <style>
@@ -11,7 +15,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
         }
 
         /* LIGHT MODE (default) variables */
@@ -24,8 +28,6 @@
             --text-secondary: #2c4c6b;
             --badge-bg: #eaf0f8;
             --badge-text: #1f4973;
-            --bio-bg: #ffffffb3;
-            --bio-text: #1e2f3f;
             --repo-card-bg: white;
             --repo-border: #ffffff;
             --repo-name: #0b2b40;
@@ -53,8 +55,6 @@
             --text-secondary: #9bb8da;
             --badge-bg: #253544;
             --badge-text: #bdd3f0;
-            --bio-bg: #1e2b39e0;
-            --bio-text: #cfddee;
             --repo-card-bg: #1f2b37;
             --repo-border: #2d4055;
             --repo-name: #d0e2ff;
@@ -82,6 +82,12 @@
             transition: background 0.2s, color 0.2s;
         }
 
+        /* focus styles for accessibility */
+        :focus-visible {
+            outline: 2px solid #1f5380;
+            outline-offset: 2px;
+        }
+
         .card {
             max-width: 1200px;
             width: 100%;
@@ -95,17 +101,17 @@
             transition: all 0.2s ease;
         }
 
-        /* about me header section */
-        .about-header {
+        /* header section (avatar + identity) */
+        .profile-header {
             display: flex;
             flex-wrap: wrap;
             align-items: center;
             gap: 2.2rem;
-            margin-bottom: 3.5rem;
+            margin-bottom: 2.5rem;
             padding-bottom: 1.8rem;
             border-bottom: 2px dashed rgba(0, 70, 120, 0.15);
         }
-        body.dark-mode .about-header {
+        body.dark-mode .profile-header {
             border-bottom-color: rgba(100, 160, 220, 0.2);
         }
 
@@ -130,11 +136,11 @@
             text-shadow: 2px 4px 0 #b87c10;
         }
 
-        .about-text {
+        .profile-text {
             flex: 1;
         }
 
-        .about-text h1 {
+        .profile-text h1 {
             font-size: 2.7rem;
             font-weight: 700;
             letter-spacing: -0.02em;
@@ -144,7 +150,7 @@
             background-clip: text;
             margin-bottom: 0.3rem;
         }
-        body.dark-mode .about-text h1 {
+        body.dark-mode .profile-text h1 {
             background: linear-gradient(145deg, #c0daf5, #8ab3e6);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
@@ -197,39 +203,6 @@
             color: #7ab7e0;
         }
 
-        /* bio / longer about */
-        .bio-card {
-            background: var(--bio-bg);
-            border-radius: 2rem;
-            padding: 1.5rem 2rem;
-            margin: 2rem 0 2.5rem 0;
-            border: 1px solid rgba(255,255,255,0.8);
-            box-shadow: 0 10px 18px -10px rgba(33,38,45,0.2);
-            line-height: 1.6;
-            color: var(--bio-text);
-            font-size: 1.1rem;
-            backdrop-filter: blur(4px);
-        }
-        body.dark-mode .bio-card {
-            border-color: #2a4055;
-        }
-
-        .bio-card p {
-            margin-bottom: 0.8rem;
-        }
-
-        .bio-card p:last-child {
-            margin-bottom: 0;
-        }
-
-        .bio-card i {
-            color: #3a6d8c;
-            margin-right: 6px;
-        }
-        body.dark-mode .bio-card i {
-            color: #7cb0d5;
-        }
-
         .section-title {
             display: flex;
             align-items: center;
@@ -237,7 +210,7 @@
             font-size: 1.8rem;
             font-weight: 620;
             color: var(--text-primary);
-            margin: 2rem 0 1.6rem 0;
+            margin: 1.5rem 0 1.6rem 0;
         }
 
         .section-title i {
@@ -264,6 +237,7 @@
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 1.5rem;
             margin-top: 1rem;
+            list-style: none;
         }
 
         .repo-card {
@@ -277,6 +251,7 @@
             flex-direction: column;
             backdrop-filter: blur(4px);
             word-wrap: break-word;
+            height: 100%;
         }
 
         .repo-card:hover {
@@ -297,11 +272,8 @@
         }
 
         .repo-header i {
-            font-size: 1.8rem;
-            color: #222;
-        }
-        body.dark-mode .repo-header i {
-            color: #c0d0e0;
+            font-size: 1.6rem;
+            color: inherit; /* allow inline color override */
         }
 
         .repo-name {
@@ -391,6 +363,7 @@
             color: var(--error-text);
             font-weight: 500;
             font-size: 1.2rem;
+            grid-column: 1 / -1;
         }
 
         .loading-message {
@@ -445,11 +418,18 @@
 
         @media (max-width: 600px) {
             .card { padding: 1.8rem 1.2rem; }
-            .about-header { gap: 1rem; }
+            .profile-header { gap: 1rem; }
             .avatar-frame { width: 80px; height: 80px; }
             .avatar-frame i { font-size: 3rem; }
-            .about-text h1 { font-size: 2rem; }
+            .profile-text h1 { font-size: 2rem; }
             .section-title { font-size: 1.5rem; }
+            .theme-toggle {
+                top: 10px;
+                right: 15px;
+                width: 44px;
+                height: 44px;
+                font-size: 1.5rem;
+            }
         }
 
         /* dark mode toggle button */
@@ -472,10 +452,17 @@
             box-shadow: 0 8px 18px rgba(0,0,0,0.1);
             transition: 0.2s;
             color: var(--text-primary);
+            background: var(--card-bg);
+            border: 1px solid var(--card-border-inset);
+            padding: 0;
         }
         .theme-toggle:hover {
             transform: scale(1.07);
             border-color: #809ab3;
+        }
+        .theme-toggle:focus-visible {
+            outline: 2px solid #1f5380;
+            outline-offset: 2px;
         }
         body.dark-mode .theme-toggle {
             border-color: #305d8a;
@@ -488,20 +475,19 @@
     </style>
 </head>
 <body>
-    <!-- dark mode toggle button -->
-    <div class="theme-toggle" id="themeToggle" title="Toggle dark mode">
+    <button class="theme-toggle" id="themeToggle" aria-label="Toggle dark mode" title="Toggle dark mode">
         <i class="fas fa-sun light-icon"></i>
         <i class="fas fa-moon dark-icon"></i>
-    </div>
+    </button>
 
-    <div class="card">
-        <!-- ========== ABOUT ME header ========== -->
-        <div class="about-header">
+    <main class="card">
+        <!-- profile header (avatar + identity) - no bio, just identity -->
+        <header class="profile-header">
             <div class="avatar-frame">
                 <i class="fas fa-user-astronaut"></i>
             </div>
-            <div class="about-text">
-                <h1>👋 Nexo <span style="font-weight:300; font-size:1.4rem; color:var(--text-secondary);">/ about.me</span></h1>
+            <div class="profile-text">
+                <h1>Nexo</h1>
                 <div class="tagline">
                     <i class="fas fa-code"></i>   @EnkryptedV1rus
                     <i class="fas fa-map-pin" style="margin-left: 8px;"></i>  USA
@@ -513,50 +499,39 @@
                     <span class="badge"><i class="fas fa-cloud"></i> DevOps</span>
                 </div>
             </div>
-        </div>
+        </header>
 
-        <!-- ========== EXTENDED ABOUT (bio) ========== -->
-        <div class="bio-card">
-            <p><i class="fas fa-quote-left" style="opacity:0.7;"></i> I'm a developer & tool builder who loves crafting small utilities, web experiments, and libraries. 
-            During the day I lead dev tools at <strong>StackStorm</strong> (well, that's the dream), and at night I contribute to OSS or build weird side projects. 
-            This page shows a few repositories I've pushed to GitHub – from static site generators to cli tools in rust/go. Always happy to connect!</p>
-            <p><i class="fas fa-palm-tree"></i>  15 year old · Florida </p>
-        </div>
-
-        <!-- ========== REPOSITORIES SECTION ========== -->
-        <div class="section-title">
-            <i class="fab fa-github"></i> 
-            <span>my recent repositories</span>
-            <span class="demo-hint"><i class="fas fa-sync-alt"></i> live from github API</span>
-        </div>
-
-        <!-- repo grid injected via javascript -->
-        <div id="repoContainer" class="repo-grid">
-            <div class="loading-message">
-                <i class="fas fa-spinner fa-pulse"></i> fetching repositories from GitHub...
+        <!-- repositories section (main focus) -->
+        <section>
+            <div class="section-title">
+                <i class="fab fa-github"></i> 
+                <span>Public Repositories</span>
+                <span class="demo-hint"><i class="fas fa-flask"></i> live from Github API</span>
             </div>
-        </div>
 
-        <!-- subtle footnote with link to actual github -->
+            <ul id="repoContainer" class="repo-grid">
+                <li class="loading-message">
+                    <i class="fas fa-spinner fa-pulse"></i> fetching repositories from GitHub...
+                </li>
+            </ul>
+        </section>
+
         <hr>
-        <div class="footer-note">
-            <span><i class="fab fa-github"></i> github.com/<strong>EnkryptedV1rus</strong></span>
+        <footer class="footer-note">
+            <span><i class="fab fa-github"></i> <a href="https://github.com/EnkryptedV1rus" target="_blank" rel="noopener noreferrer">github.com/<strong>EnkryptedV1rus</strong></a></span>
             <span><i class="fas fa-star"></i>  data via fetch + GitHub public API </span>
-            <span><a href="#"><i class="fas fa-envelope"></i> itzn3xo@proton.me</a></span>
-        </div>
-    </div>
+            <span><a href="mailto:itzn3xo@proton.me"><i class="fas fa-envelope"></i> itzn3xo@proton.me</a></span>
+        </footer>
+    </main>
 
-    <!-- JavaScript for fetching repos + dark mode toggle -->
     <script>
         (function() {
-            // ===== YOUR GITHUB USERNAME =====
-            const GITHUB_USERNAME = 'EnkryptedV1rus';   // updated to your actual username
+            const GITHUB_USERNAME = 'EnkryptedV1rus';
 
             const repoContainer = document.getElementById('repoContainer');
 
-            // utility to create a repo card element
             function createRepoCard(repo) {
-                const card = document.createElement('div');
+                const card = document.createElement('li');
                 card.className = 'repo-card';
 
                 const langColors = {
@@ -570,11 +545,11 @@
                 const description = repo.description ? repo.description : '📁 no description provided';
                 const stars = repo.stargazers_count ?? 0;
                 const name = repo.name;
-                const repoUrl = repo.html_url || `https://github.com/${GITHUB_USERNAME}/${name}`;
+                const repoUrl = repo.html_url || `https://github.com/${GITHUB_USERNAME}?tab=repositories`;
 
                 card.innerHTML = `
                     <div class="repo-header">
-                        <i class="far fa-circle" style="color:${langColor};"></i>
+                        <i class="fas fa-code" style="color: ${langColor};"></i>
                         <span class="repo-name" title="${name}">${name}</span>
                     </div>
                     <div class="repo-desc">${description}</div>
@@ -586,7 +561,7 @@
                         <div class="repo-stars">
                             <i class="fas fa-star"></i> <span>${stars}</span>
                         </div>
-                        <a class="repo-link" href="${repoUrl}" target="_blank" rel="noopener">
+                        <a class="repo-link" href="${repoUrl}" target="_blank" rel="noopener noreferrer">
                             view <i class="fas fa-arrow-right"></i>
                         </a>
                     </div>
@@ -594,25 +569,26 @@
                 return card;
             }
 
-            // fallback repositories (only used if API fails)
             function renderFallbackRepos() {
                 const fallbackRepos = [
-                    { name: 'Advanced-Moderation-Bot', description: 'Advanced moderation bot for Discord (placeholder - real repo will load)', language: 'JavaScript', stargazers_count: 1, html_url: 'https://github.com/EnkryptedV1rus/Advanced-Moderation-Bot' },
-                    { name: 'next.js', description: 'React framework (demo)', language: 'JavaScript', stargazers_count: 118000, html_url: 'https://github.com/vercel/next.js' },
-                    { name: 'druid', description: 'Data visualization (demo)', language: 'Java', stargazers_count: 3200, html_url: '#' },
-                    { name: 'hyper', description: 'Terminal (demo)', language: 'TypeScript', stargazers_count: 42800, html_url: '#' }
+                    { name: 'demo-advanced-bot', description: 'Example: Discord moderation bot (placeholder)', language: 'JavaScript', stargazers_count: 42, html_url: 'https://github.com/EnkryptedV1rus' },
+                    { name: 'demo-cli-tool', description: 'Example: CLI utility in Go (placeholder)', language: 'Go', stargazers_count: 18, html_url: 'https://github.com/EnkryptedV1rus' },
+                    { name: 'demo-web-experiment', description: 'Example: Vue + D3 playground (placeholder)', language: 'Vue', stargazers_count: 7, html_url: 'https://github.com/EnkryptedV1rus' },
+                    { name: 'demo-rusty', description: 'Example: Rust tool (placeholder)', language: 'Rust', stargazers_count: 23, html_url: 'https://github.com/EnkryptedV1rus' }
                 ];
                 repoContainer.innerHTML = '';
                 fallbackRepos.forEach(repo => {
-                    if (typeof repo.stargazers_count === 'string') {
-                        repo.stargazers_count = parseInt(repo.stargazers_count.replace('k', '')) * 1000;
-                    }
                     repoContainer.appendChild(createRepoCard(repo));
                 });
+                const note = document.createElement('li');
+                note.className = 'demo-hint';
+                note.style = 'grid-column: 1/-1; text-align: center; list-style: none; margin-top: 1rem;';
+                note.innerHTML = '<i class="fas fa-info-circle"></i> Showing demo repositories (GitHub fetch failed or no public repos)';
+                repoContainer.appendChild(note);
             }
 
             async function fetchRepos() {
-                repoContainer.innerHTML = `<div class="loading-message"><i class="fas fa-spinner fa-pulse"></i> fetching repositories from GitHub...</div>`;
+                repoContainer.innerHTML = `<li class="loading-message"><i class="fas fa-spinner fa-pulse"></i> fetching repositories from GitHub...</li>`;
 
                 try {
                     const response = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}/repos?sort=updated&per_page=12`);
@@ -622,41 +598,23 @@
                     const repos = await response.json();
 
                     if (!Array.isArray(repos) || repos.length === 0) {
-                        // No repos? Show a friendly message with fallback
-                        repoContainer.innerHTML = '';
                         renderFallbackRepos();
-                        const note = document.createElement('p');
-                        note.style = "grid-column:1/-1; text-align:center; color:var(--text-secondary); margin-top:8px;";
-                        note.innerHTML = '<i class="fas fa-info-circle"></i> no public repos? showing demo projects.';
-                        repoContainer.appendChild(note);
                         return;
                     }
 
                     repoContainer.innerHTML = '';
                     repos.forEach(repo => repoContainer.appendChild(createRepoCard(repo)));
 
-                    if (repos.length === 1) {
-                        const note = document.createElement('div');
+                    if (repos.length < 4) {
+                        const note = document.createElement('li');
                         note.className = 'demo-hint';
-                        note.style = "grid-column:1/-1; text-align:center; margin-top:15px;";
-                        note.innerHTML = '<i class="fas fa-code-branch"></i>   that\'s your only public repo — more coming soon!';
-                        repoContainer.appendChild(note);
-                    } else if (repos.length < 4) {
-                        const note = document.createElement('div');
-                        note.className = 'demo-hint';
-                        note.style = "grid-column:1/-1; text-align:center; margin-top:15px;";
-                        note.innerHTML = '<i class="fas fa-code-branch"></i>   showing all public repos';
+                        note.style = 'grid-column: 1/-1; text-align: center; list-style: none; margin-top: 1rem;';
+                        note.innerHTML = '<i class="fas fa-code-branch"></i> showing all public repositories';
                         repoContainer.appendChild(note);
                     }
                 } catch (error) {
                     console.warn('Using fallback repositories due to fetch error:', error);
-                    repoContainer.innerHTML = '';
                     renderFallbackRepos();
-                    const fallbackNotice = document.createElement('div');
-                    fallbackNotice.className = 'error-message';
-                    fallbackNotice.style = 'margin-top:1rem; grid-column:1/-1;';
-                    fallbackNotice.innerHTML = `<i class="fas fa-exclamation-triangle"></i> live GitHub fetch failed — showing example repositories (as placeholder)`;
-                    repoContainer.appendChild(fallbackNotice);
                 }
             }
 
@@ -671,6 +629,11 @@
                 body.classList.add('dark-mode');
             } else if (savedTheme === 'light') {
                 body.classList.remove('dark-mode');
+            } else {
+                if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                    body.classList.add('dark-mode');
+                    localStorage.setItem('theme', 'dark');
+                }
             }
 
             toggleBtn.addEventListener('click', () => {
@@ -683,7 +646,5 @@
             });
         })();
     </script>
-    <!-- small note for java lovers (kept from previous) -->
-    <div style="display: none;">Java tools lover – see spring projects below (in case API fails, we show petclinic example)</div>
 </body>
 </html>
